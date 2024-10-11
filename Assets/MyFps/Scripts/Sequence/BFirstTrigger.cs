@@ -33,13 +33,13 @@ namespace MyFps
             textBox.text = sequence;
 
             //1초 딜레이
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
 
             //화살표 활성화
             theArrow.SetActive(true);
 
             //1초 딜레이
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
 
             //초기화
             textBox.text = "";
