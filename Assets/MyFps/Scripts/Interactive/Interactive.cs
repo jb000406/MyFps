@@ -1,12 +1,9 @@
-using MyFps;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 namespace MyFps
 {
-    //ÀÎÅÍ·ºÆ¼ºê ¾×¼ÇÀ» ±¸ÇöÇÏ´Â Å¬·¡½º
+    //ì¸í„°ë ‰í‹°ë¸Œ ì•¡ì…˜ì„ êµ¬í˜„í•˜ëŠ” í´ë˜ìŠ¤
     public abstract class Interactive : MonoBehaviour
     {
         protected abstract void DoAction();
@@ -14,8 +11,7 @@ namespace MyFps
         #region Variables
         private float theDistance;
 
-
-        //Action UI
+        //action UI
         public GameObject actionUI;
         public TextMeshProUGUI actionText;
         [SerializeField] private string action = "Action Text";
@@ -24,13 +20,6 @@ namespace MyFps
         //Action
         #endregion
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
         private void Update()
         {
             theDistance = PlayerCasting.distanceFromTarget;
@@ -38,8 +27,8 @@ namespace MyFps
 
         private void OnMouseOver()
         {
-            //°Å¸®°¡ 2ÀÌÇÏ ÀÏ¶§
-            if (theDistance <= 1.5f)
+            //ê±°ë¦¬ê°€ 2ì´í•˜ ì¼ë•Œ
+            if (theDistance <= 2f)
             {
                 ShowActionUI();
 
@@ -49,10 +38,7 @@ namespace MyFps
 
                     //Action
                     DoAction();
-
-
                 }
-
             }
             else
             {
@@ -64,7 +50,6 @@ namespace MyFps
         {
             HideActionUI();
         }
-
 
         void ShowActionUI()
         {
@@ -79,7 +64,5 @@ namespace MyFps
             actionText.text = "";
             extraCross.SetActive(false);
         }
-
-
     }
 }

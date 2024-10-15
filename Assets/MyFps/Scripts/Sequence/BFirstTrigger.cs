@@ -22,31 +22,32 @@ namespace MyFps
             StartCoroutine(PlaySequence());
         }
 
-        //Æ®¸®°Å ÀÛµ¿½Ã ÇÃ·¹ÀÌ
+        //íŠ¸ë¦¬ê±° ì‘ë™ì‹œ í”Œë ˆì´
         IEnumerator PlaySequence()
         {
-            //ÇÃ·¹ÀÌ Ä³¸¯ÅÍ ºñÈ°¼ºÈ­(ÇÃ·¹ÀÌ ¸ØÃã)
+            //í”Œë ˆì´ ìºë¦­í„° ë¹„í™œì„±í™”(í”Œë ˆì´ ë©ˆì¶¤)
             thePlayer.SetActive(false);
 
-            //´ë»ç Ãâ·Â: "Looks like a weapon on that table."
+            //ëŒ€ì‚¬ ì¶œë ¥: "Looks like a weapon on that table."
             textBox.gameObject.SetActive(true);
             textBox.text = sequence;
 
-            //1ÃÊ µô·¹ÀÌ
-            yield return new WaitForSeconds(1f);
-
-            //È­»ìÇ¥ È°¼ºÈ­
-            theArrow.SetActive(true);
-
-            //1ÃÊ µô·¹ÀÌ
+            //1ì´ˆ ë”œë ˆì´
             yield return new WaitForSeconds(2f);
 
-            //ÃÊ±âÈ­
+            //í™”ì‚´í‘œ í™œì„±í™”
+            theArrow.SetActive(true);
+
+            //1ì´ˆ ë”œë ˆì´
+            yield return new WaitForSeconds(1f);
+
+            //ì´ˆê¸°í™”
             textBox.text = "";
             textBox.gameObject.SetActive(false);
-            //ÇÃ·¹ÀÌ Ä³¸¯ÅÍ È°¼ºÈ­(´Ù½Ã ÇÃ·¹ÀÌ)
+            //í”Œë ˆì´ ìºë¦­í„° í™œì„±í™”(ë‹¤ì‹œ í”Œë ˆì´)
             thePlayer.SetActive(true);
-            //Æ®¸®°Å Ãæµ¹Ã¼ ºñÈ°¼ºÈ­
+
+            //íŠ¸ë¦¬ê±° ì¶©ëŒì²´ ë¹„í™œì„±í™”
             transform.GetComponent<BoxCollider>().enabled = false;
         }
     }

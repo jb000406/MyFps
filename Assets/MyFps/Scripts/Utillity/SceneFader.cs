@@ -28,7 +28,7 @@ namespace MyFps
 
         IEnumerator FadeIn(float delayTime)
         {
-            if (delayTime > 0f)
+            if(delayTime > 0f)
             {
                 yield return new WaitForSeconds(delayTime);
             }

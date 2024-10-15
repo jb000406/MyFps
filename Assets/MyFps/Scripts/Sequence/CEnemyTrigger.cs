@@ -4,59 +4,41 @@ using UnityEngine;
 
 namespace MyFps
 {
-
     public class CEnemyTrigger : MonoBehaviour
     {
         #region Variables
-        public GameObject theDoor;          //¹®
+        public GameObject theDoor;      //ë¬¸
+        public AudioSource doorBang;    //ë¬¸ ì—´ê¸° ì‚¬ìš´ë“œ
 
-        public AudioSource doorBang;        //¹® ¿­±â »ç¿îµå
-        public AudioSource JumpscareTune;   //Àû µîÀå »ç¿îµå
-
-        public GameObject thePlayer;        //ÇÃ·¹ÀÌ¾î
-        public GameObject theRobot;         //·Îº¿
-
+        public AudioSource jumpScare;   //ì  ë“±ì¥ ì‚¬ìš´ë“œ
+        public GameObject theRobot;     //ì 
         #endregion
-        // Start is called before the first frame update
-        void Start()
-        {
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
 
         private void OnTriggerEnter(Collider other)
         {
-            StartCoroutine(OpenDoor());
+            StartCoroutine(PlaySequence());
         }
 
-        IEnumerator OpenDoor()
+        //íŠ¸ë¦¬ê±° ì‘ë™ì‹œ í”Œë ˆì´
+        IEnumerator PlaySequence()
         {
-            //ÇÃ·¹ÀÌ Ä³¸¯ÅÍ ºñÈ°¼ºÈ­(ÇÃ·¹ÀÌ ¸ØÃã)
-            thePlayer.SetActive(false);
-            
+            //ë¬¸ì—´ê¸°
+            theDoor.GetComponent<Animator>().SetBool("IsOpen", true);
+            theDoor.GetComponent<BoxCollider>().enabled = false;
 
-            yield return new WaitForSeconds(1f);
+            //ë¬¸ ì‚¬ìš´ë“œ
+            doorBang.Play();
 
-            //Àû ¼ÒÈ¯
+            //Enemy í™œì„±í™”
             theRobot.SetActive(true);
 
-            theDoor.GetComponent<Animator>().SetBool("IsOpen", true);
-
-            //¹® »ç¿îµå
-            doorBang.Play();
-            
-            //Àû µîÀå »ç¿îµå
-            JumpscareTune.Play();
-            
-
             yield return new WaitForSeconds(1f);
 
-            thePlayer.SetActive(true);
-            gameObject.GetComponent<BoxCollider>().enabled = false;
+            //Enemy ë“±ì¥ ì‚¬ìš´ë“œ
+            jumpScare.Play();
+
+            //íŠ¸ë¦¬ê±° í‚¬
+            Destroy(this.gameObject);
         }
     }
 }

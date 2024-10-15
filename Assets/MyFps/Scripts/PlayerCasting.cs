@@ -4,12 +4,13 @@ using UnityEngine;
 
 namespace MyFps
 {
-    //Á¤¸é¿¡ ÀÖ´Â Ãæµ¹Ã¼¿ÍÀÇ °Å¸® ±¸ÇÏ±â
+    //ì •ë©´ì— ìˆëŠ” ì¶©ëŒì²´ì™€ì˜ ê±°ë¦¬ êµ¬í•˜ê¸°
     public class PlayerCasting : MonoBehaviour
     {
+
         #region Variables
         public static float distanceFromTarget;
-        [SerializeField] private float toTarget;
+        [SerializeField] private float toTarget;    //ê±°ë¦¬ ìˆ«ì ë³´ê¸°
         #endregion
 
         // Update is called once per frame
@@ -21,21 +22,18 @@ namespace MyFps
                 distanceFromTarget = hit.distance;
                 toTarget = distanceFromTarget;
             }
-
         }
 
-
-        // Gizmo ±×¸®±â : Ä«¸Ş¶ó À§Ä¡¿¡¼­ ¾Õ¿¡ Ãæµ¹Ã¼±îÁö ·¹ÀÌÀú ½î´Â ¼± ±×¸®±â
-        private void OnDrawGizmos()
+        //Gimo ê·¸ë¦¬ê¸° : ì¹´ë©”ë¼ ìœ„ì¹˜ì—ì„œ ì•ì— ì¶©ëŒì²´ê¹Œì§€ ë ˆì´ì € ì˜ëŠ” ì„  ê·¸ë¦¬ê¸°
+        private void OnDrawGizmosSelected()
         {
             float maxDistance = 100f;
             RaycastHit hit;
             bool isHit = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, maxDistance);
-            Gizmos.color = Color.red;
 
+            Gizmos.color = Color.red;
             if (isHit)
             {
-                
                 Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
             }
             else

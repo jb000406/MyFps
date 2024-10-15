@@ -12,7 +12,7 @@ namespace MyFps
         public SceneFader fader;
 
         //sequence UI
-        public TextMeshProUGUI textBox;
+        public TextMeshProUGUI textBox; 
         [SerializeField]
         private string sequence = "I need get out of here";
         #endregion
@@ -23,26 +23,26 @@ namespace MyFps
             StartCoroutine(PlaySequence());
         }
 
-        //¿ÀÇÁ´× ½ÃÄö½º
+        //ì˜¤í”„ë‹ ì‹œí€€ìŠ¤
         IEnumerator PlaySequence()
         {
-            //0.ÇÃ·¹ÀÌ Ä³¸¯ÅÍ ºñ È°¼ºÈ­
+            //0.í”Œë ˆì´ ìºë¦­í„° ë¹„ í™œì„±í™”
             thePlayer.SetActive(false);
 
-            //1.ÆäÀÌµåÀÎ ¿¬Ãâ(1ÃÊ ´ë±âÈÄ ÆäÀÎµåÀÎ È¿°ú)            
-            fader.FromFade(1f); //2ÃÊµ¿¾È ÆäÀÌµå È¿°ú
+            //1.í˜ì´ë“œì¸ ì—°ì¶œ(1ì´ˆ ëŒ€ê¸°í›„ í˜ì¸ë“œì¸ íš¨ê³¼)            
+            fader.FromFade(1f); //2ì´ˆë™ì•ˆ í˜ì´ë“œ íš¨ê³¼
 
-            //2.È­¸é ÇÏ´Ü¿¡ ½Ã³ª¸®¿À ÅØ½ºÆ® È­¸é Ãâ·Â(3ÃÊ)
+            //2.í™”ë©´ í•˜ë‹¨ì— ì‹œë‚˜ë¦¬ì˜¤ í…ìŠ¤íŠ¸ í™”ë©´ ì¶œë ¥(3ì´ˆ)
             //(I need get out of here)
             textBox.gameObject.SetActive(true);
             textBox.text = sequence;
 
-            //3. 3ÃÊÈÄ¿¡ ½Ã³ª¸®¿À ÅØ½ºÆ® ¾ø¾îÁø´Ù
+            //3. 3ì´ˆí›„ì— ì‹œë‚˜ë¦¬ì˜¤ í…ìŠ¤íŠ¸ ì—†ì–´ì§„ë‹¤
             yield return new WaitForSeconds(3f);
             textBox.text = "";
             textBox.gameObject.SetActive(false);
 
-            //4.ÇÃ·¹ÀÌ Ä³¸¯ÅÍ È°¼ºÈ­
+            //4.í”Œë ˆì´ ìºë¦­í„° í™œì„±í™”
             thePlayer.SetActive(true);
         }
 

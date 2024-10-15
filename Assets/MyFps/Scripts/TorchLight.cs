@@ -1,23 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 
-namespace MyFps
+namespace MySample
 {
-
     public class TorchLight : MonoBehaviour
     {
         #region Variables
         public Transform torchLight;
         private Animator animator;
 
-
-        //1초 타이머
-        [SerializeField] private float flameTimer = 1f;
-        private float countdown = 0f;
-
-        private int lightMode;
+        private int lightMode = 0;
         #endregion
 
         // Start is called before the first frame update
@@ -32,22 +25,19 @@ namespace MyFps
         // Update is called once per frame
         void Update()
         {
+            //1초마다 1번씩 랜덤한 라이트 애니메이션을  플레이
             /*if (lightMode == 0)
             {
-                StartCoroutine(FrameAnimation());
+                StartCoroutine(FlameAnimation());
             }*/
-
-
         }
 
-        IEnumerator FrameAnimation()
+        IEnumerator FlameAnimation()
         {
             lightMode = Random.Range(1, 4);
             animator.SetInteger("LightMode", lightMode);
-            
 
-            yield return new WaitForSeconds(1.0f);
-
+            yield return new WaitForSeconds(1f);
             lightMode = 0;
         }
 
@@ -57,6 +47,5 @@ namespace MyFps
             lightMode = Random.Range(1, 4);
             animator.SetInteger("LightMode", lightMode);
         }
-
     }
 }
