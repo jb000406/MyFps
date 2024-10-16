@@ -10,6 +10,7 @@ namespace MyFps
         #region Variables
         public GameObject thePlayer;
         public SceneFader fader;
+        public GameObject ceilings;
 
         //sequence UI
         public TextMeshProUGUI textBox; 
@@ -20,7 +21,12 @@ namespace MyFps
         // Start is called before the first frame update
         void Start()
         {
+            //마우스 커서 상태 설정
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
             StartCoroutine(PlaySequence());
+            ceilings.SetActive(true);
         }
 
         //오프닝 시퀀스
