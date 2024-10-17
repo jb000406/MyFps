@@ -21,6 +21,9 @@ namespace MyFps
         //연사 딜레이
         [SerializeField] private float fireDelay = 0.5f;
         private bool isFire = false;
+
+        //임펙트 효과
+        public GameObject hitImpactPrefab;
         public 
         #endregion
 
@@ -37,7 +40,10 @@ namespace MyFps
             //슛
             if(Input.GetButtonDown("Fire") && !isFire)
             {
-                StartCoroutine(Shoot());
+                if (PlayerStats.Instance.UseAmmo(1) == true)
+                {
+                    StartCoroutine(Shoot());
+                }
             }
         }
 
@@ -50,12 +56,16 @@ namespace MyFps
             RaycastHit hit;
             if(Physics.Raycast(firePoint.position, firePoint.TransformDirection(Vector3.forward), out hit, maxDistance))
             {
+                //hit 임펙트 효과
+                GameObject eff = Instantiate(hitImpactPrefab, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(eff, 2f);
+
                 //적에게 데미지를 준다
-                Debug.Log($"{hit.transform.name}적에게 데미지를 준다");
-                RobotController robot = hit.transform.GetComponent<RobotController>();
-                if (robot != null)
+                //Debug.Log($"{hit.transform.name}적에게 데미지를 준다");
+                IDamageable damageable = hit.transform.GetComponent<IDamageable>();
+                if (damageable != null)
                 {
-                    robot.TakeDamage(attackDamage);
+                    damageable.TakeDamage(attackDamage);
                 }
             }
 
