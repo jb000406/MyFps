@@ -17,7 +17,8 @@ namespace MyFps
         [SerializeField] private string action = "Action Text";
         public GameObject extraCross;
 
-        //Action
+        //true이면 Interactive 기능을 정지
+        protected bool unInteractive = false;
         #endregion
 
         private void Update()
