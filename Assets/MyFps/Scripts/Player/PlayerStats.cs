@@ -9,6 +9,7 @@ namespace MyFps
     {
         ROOM01_KEY,
         LEFTEYE_KEY,
+        RIGHTEYE_KEY,
         MAX_KEY             //∆€¡Ò æ∆¿Ã≈€ ∞πºˆ
     }
 
