@@ -144,10 +144,10 @@ namespace MyFps
         private void Attack()
         {
             Debug.Log("플레이어");
-            PlayerController player = thePlayer.GetComponent<PlayerController>();
-            if (player != null)
+            IDamageable damageable = thePlayer.GetComponent<IDamageable>();
+            if (damageable != null)
             {
-                player.TakeDamage(attackDamage);
+                damageable.TakeDamage(attackDamage);
             }
         }
     }
