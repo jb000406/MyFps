@@ -42,7 +42,18 @@ namespace MyFps
 
         private Vector3 startPosition;  //시작위치, 타겟을 잃었을때 돌아오는 지점
 
+        //적 감지
+        private bool isAiming = false;
+        public bool IsAiming
+        {
+            get { return isAiming; }
+            private set
+            {
+                isAiming = value;
+            }
+        }
 
+        [SerializeField] private float detectDistance = 20f;
         #endregion
 
         // Start is called before the first frame update
@@ -86,7 +97,13 @@ namespace MyFps
             {
                 SetState(EnemyState.E_Attack);
             }
-
+            else if (detectDistance > 0)
+            {
+                if (IsAiming)
+                {
+                    SetState(EnemyState.E_Chase);
+                }
+            }
 
             switch (currentState)
             {
@@ -111,6 +128,12 @@ namespace MyFps
                     }
                     break;
                 case EnemyState.E_Chase:
+                    if (detectDistance > 0 && !IsAiming)
+                    {
+                        GoStartPostion();
+                        return;
+                    }
+
                     //플레이어 위치 업데이트
                     agent.SetDestination(thePlayer.position);
                     break;
@@ -122,6 +145,9 @@ namespace MyFps
         //적의 상태 변경
         public void SetState(EnemyState newState)
         {
+            if (isDeath)
+                return;
+
             //현재 상태 체크
             if (currentState == newState)
                 return;
@@ -170,6 +196,8 @@ namespace MyFps
 
         private void Die()
         {
+            SetState(EnemyState.E_Death);
+
             isDeath = true;
 
             Debug.Log("Robot Death!!!");
@@ -177,6 +205,9 @@ namespace MyFps
 
             //충돌체 제거
             transform.GetComponent<BoxCollider>().enabled = false;
+
+            //킬
+            Destroy(gameObject, 3f);
         }
 
         private void GoNextPoint()
@@ -187,6 +218,25 @@ namespace MyFps
                 nowWayPoint = 0;
             }
             agent.SetDestination(wayPoints[nowWayPoint].position);
+        }
+
+        //제자리로 돌아가기
+        public void GoStartPostion()
+        {
+            if (isDeath)
+                return;
+
+            SetState(EnemyState.E_Walk);
+
+            nowWayPoint = 0;
+            agent.SetDestination(startPosition);
+        }
+
+        //적 감지 반경
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, detectDistance);
         }
     }
 }
