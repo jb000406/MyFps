@@ -6,40 +6,52 @@ using UnityEngine.SceneManagement;
 
 namespace MyFps
 {
-
-    public class TitleUI : MonoBehaviour
+    public class Title : MonoBehaviour
     {
         #region Variables
-        private string SceneString = "PlayScene";
-
         public SceneFader fader;
+        [SerializeField] private string loadToScene = "MainMenu";
 
+        private bool isAnyKey = false;
+        public GameObject anykeyUI;
         #endregion
 
-        void Start()
+        private void Start()
         {
-            StartCoroutine(PlaySequence());
+            //페이드인 효과
+            fader.FromFade();
+
+            //초기화
+            isAnyKey = false;
+
+            StartCoroutine(TitleProcess());
         }
 
-        //오프닝 시퀀스
-        IEnumerator PlaySequence()
+        private void Update()
         {
-            //1.페이드인 연출(1초 대기후 페인드인 효과)            
-            fader.FromFade(1f); //2초동안 페이드 효과
+            if (Input.anyKey && isAnyKey)
+            {
+                GotoMenu();
+            }
+        }
 
-            yield return new WaitForSeconds(3f);
+        //3초뒤에 anykey Show, 10초 뒤에 자동 넘김
+        IEnumerator TitleProcess()
+        {
+            yield return new WaitForSeconds(4f);
+            isAnyKey = true;
+            anykeyUI.SetActive(true);
 
+            yield return new WaitForSeconds(10f);
+            GotoMenu();
         }
 
 
-        public void GamePlay()
+        private void GotoMenu()
         {
-            SceneManager.LoadScene(SceneString);
-        }
+            StopAllCoroutines();
 
-        public void GameQuit()
-        {
-            Debug.Log("게임 종료");
+            fader.FadeTo(loadToScene);
         }
     }
 }

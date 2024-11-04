@@ -33,7 +33,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FaceTex:
-        m_Texture: {fileID: 2800000, guid: bf871563dcaf5484ca6fd88ab882154c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 228eee96ea5142044a6274adcaab633a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -42,7 +42,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
-        m_Texture: {fileID: 2800000, guid: f1b752d9703baf74a8aa06188ff3751d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 73d7769550b4d1f4dbea6b403b7ef56a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []

@@ -89,13 +89,17 @@ namespace MyFps
             if (isDeath)
                 return;
 
-            //타겟 지정
-            Vector3 dir = thePlayer.transform.position - transform.position;
+            //타겟 지정            
             float distance = Vector3.Distance(thePlayer.transform.position, transform.position);
+            if (detectDistance > 0)
+            {
+                IsAiming = distance <= detectDistance;
+            }
 
             if (distance <= attackRange)
             {
                 SetState(EnemyState.E_Attack);
+                agent.SetDestination(this.transform.position);
             }
             else if (detectDistance > 0)
             {
@@ -109,6 +113,7 @@ namespace MyFps
             {
                 case EnemyState.E_Idle:
                     break;
+
                 case EnemyState.E_Walk:
                     //도착 판정
                     if(agent.remainingDistance < 0.2f)
@@ -186,7 +191,7 @@ namespace MyFps
         public void TakeDamage(float damage)
         {
             currentHealth -= damage;
-            Debug.Log($"Remaion Health : {currentHealth}");
+           // Debug.Log($"Remaion Health : {currentHealth}");
 
             if (currentHealth <= 0 && !isDeath)
             {
@@ -199,9 +204,6 @@ namespace MyFps
             SetState(EnemyState.E_Death);
 
             isDeath = true;
-
-            Debug.Log("Robot Death!!!");
-            SetState(EnemyState.E_Death);
 
             //충돌체 제거
             transform.GetComponent<BoxCollider>().enabled = false;
